@@ -77,13 +77,13 @@ class FileStorage:
             json.dump(d, f_io)
 
     def reload(self):
-        """if the file exists, deserializes JSON file to __objects, else nothing"""
+        """if file exist, deserialize JSON file to __objects, else nothing"""
         fname = FileStorage.__file_path
         FileStorage.__objects = {}
         try:
             with open(fname, mode='r', encoding='utf-8') as f_io:
                 new_objs = json.load(f_io)
-        except:
+        except Exception:
             return
         for o_id, d in new_objs.items():
             k_cls = d['__class__']
@@ -105,6 +105,6 @@ class FileStorage:
 
     def close(self):
         """
-            To call the reload() method for deserialization from JSON to objects
+         To call the reload() method for deserialization from JSON to objects
         """
         self.reload()
